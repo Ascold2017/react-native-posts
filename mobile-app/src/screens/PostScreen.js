@@ -2,12 +2,16 @@ import React from 'react'
 import { ScrollView, Image, Text, StyleSheet, View, Alert, TouchableNativeFeedback } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import AppButton from '../components/AppButton'
-import { DATA } from '../../assets/data'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSelector, shallowEqual, useDispatch } from 'react-redux'
+import { toggleFavouritePost, deletePost } from '../store'
 export const PostScreen = ({ route, navigation }) => {
   const { id } = route.params;
+  const dispatch = useDispatch()
+  const post = useSelector(state => state.posts.find(post => post.id === id), shallowEqual)
 
-  const post = DATA.find(p => p.id === id);
+  if (!post) return null;
+  
   navigation.setOptions({
     title: new Date(post.date).toLocaleDateString(),
     headerTitleStyle: {
@@ -25,11 +29,12 @@ export const PostScreen = ({ route, navigation }) => {
     ),
     headerRight: () =>
       (<View style={{ paddingRight: 15 }}>
-        <TouchableNativeFeedback style={{ padding: 10 }}>
+        <TouchableNativeFeedback style={{ padding: 10 }} onPress={() => dispatch(toggleFavouritePost(id))}>
           <FontAwesome name={post.booked ? 'star' : 'star-o'} size={20} color="#fff" />
         </TouchableNativeFeedback>
       </View>),
   })
+
 
   const removePost = () => {
     Alert.alert(
@@ -38,7 +43,10 @@ export const PostScreen = ({ route, navigation }) => {
       [
         {
           text: 'Yes',
-          onPress: () => console.log(post.id),
+          onPress: () => {
+            navigation.goBack();
+            dispatch(deletePost(id));
+          },
           style: 'destructive'
         },
         {

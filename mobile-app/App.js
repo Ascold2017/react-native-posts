@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { Provider } from 'react-redux'
 import { AppLoading } from 'expo'
 import { bootstrap } from './src/bootstrap'
 import AppNavigation from './src/navigation/AppNavigation'
-
-export default function App() {
+import store, { setPosts } from './src/store'
+import { useDispatch } from 'react-redux'
+import { DATA } from './assets/data'
+const App = () => {
   const [isReady, setIsReady] = useState(false);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(setPosts(DATA))
+  })
   
   if (!isReady) {
     return (
@@ -17,5 +23,7 @@ export default function App() {
     )
   }
 
-  return <AppNavigation />
+  return <AppNavigation/>
 }
+
+export default () => <Provider store={store}><App /></Provider>
