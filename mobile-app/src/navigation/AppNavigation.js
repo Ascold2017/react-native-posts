@@ -41,8 +41,7 @@ export default () => (
               name="All"
               options={{
                 title: 'Home',
-                tabBarIcon: ({ size, color }) => <FontAwesome name="home" size={20} color={color} />,
-                unmountOnBlur: true
+                tabBarIcon: ({ size, color }) => <FontAwesome name="home" size={20} color={color} />
               }}
             >{() => (
               <Stack.Navigator screenOptions={navigatorOptions} initialRouteName="MainAll">
@@ -55,8 +54,7 @@ export default () => (
               name="Favourite"
               options={{
                 title: 'Favourite',
-                tabBarIcon: ({ size, color }) => <FontAwesome name="heart-o" size={20} color={color} />,
-                unmountOnBlur: true
+                tabBarIcon: ({ size, color }) => <FontAwesome name="heart-o" size={20} color={color} />
               }}>
               {() => (
                 <Stack.Navigator screenOptions={navigatorOptions} initialRouteName="MainFavourite">

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Image, Text, StyleSheet, View, Alert, TouchableNativeFeedback } from 'react-native'
+import { ScrollView, Image, Text, StyleSheet, View, Alert, TouchableNativeFeedback, Dimensions } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import AppButton from '../components/AppButton'
 import { TouchableOpacity } from 'react-native-gesture-handler'
@@ -59,7 +59,7 @@ export const PostScreen = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      <Image source={{ uri: post.img }} style={{ height: 200 }} />
+      <Image source={{ uri: post.img }} style={{ height: Dimensions.get('screen').height / 2 }} />
       <View style={styles.content}><Text>{post.text.repeat(100)}</Text></View>
       <AppButton color="red" onPress={removePost}>Delete</AppButton>
     </ScrollView>

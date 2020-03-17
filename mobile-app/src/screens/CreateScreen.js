@@ -1,26 +1,50 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import { addPost } from '../store'
+import { useDispatch } from 'react-redux'
 import { TextInput } from 'react-native-paper'
 import AppButton from '../components/AppButton'
+import AppCard from '../components/AppCard'
+import ImagePicker from '../components/ImagePicker'
 
-export const CreateScreen = ({}) => {
+export const CreateScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState(null)
+  const dispatch = useDispatch()
   const submitPost = () => {
-    console.log('submit')
+    dispatch(addPost({ title, image }))
+    setTitle('')
+    setImage(null)
+    navigation.navigate('MainAll')
   }
   return (
-    <View style={{flex: 1, justifyContent: 'space-between'}}>
-      <TextInput placeholder="Title" value={title} onChangeText={setTitle} />
-      <AppButton color="blue" onPress={submitPost}>Submit</AppButton>
+    <View style={{flex: 1, padding: 5}}>
+      <AppCard style={{ padding: 10 }}>
+        <TextInput placeholder="Title" value={title} onChangeText={setTitle} />
+        {image && <Image source={{ uri: image }} style={styles.preview}/>}
+        <View style={styles.buttons}>
+          <ImagePicker onPick={setImage} isFromGallery style={{ marginRight: 10 }}/>
+          <ImagePicker onPick={setImage}/>
+        </View>
+        <AppButton color="blue" onPress={submitPost}>Submit</AppButton>
+      </AppCard>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   center: {
-    flex: 1,
+    flex: 1
+  },
+  preview: {
+    height: Dimensions.get('screen').height /2,
+    width: 'auto',
+    resizeMode: 'contain'
+  },
+  buttons: {
+    flexDirection: 'row',
+    width: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    marginVertical: 10
   }
 })
