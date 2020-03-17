@@ -41,12 +41,13 @@ export default () => (
               name="All"
               options={{
                 title: 'Home',
-                tabBarIcon: ({ size, color }) => <FontAwesome name="home" size={20} color={color} />
+                tabBarIcon: ({ size, color }) => <FontAwesome name="home" size={20} color={color} />,
+                unmountOnBlur: true
               }}
             >{() => (
-              <Stack.Navigator screenOptions={navigatorOptions}>
+              <Stack.Navigator screenOptions={navigatorOptions} initialRouteName="MainAll">
                 <Stack.Screen name="MainAll" options={{ title: 'All posts' }} component={MainScreen} />
-                <Stack.Screen name="Post" component={PostScreen} />
+                <Stack.Screen name="Post" component={PostScreen}/>
               </Stack.Navigator>
             )}
             </Tab.Screen>
@@ -54,12 +55,13 @@ export default () => (
               name="Favourite"
               options={{
                 title: 'Favourite',
-                tabBarIcon: ({ size, color }) => <FontAwesome name="heart-o" size={20} color={color} />
+                tabBarIcon: ({ size, color }) => <FontAwesome name="heart-o" size={20} color={color} />,
+                unmountOnBlur: true
               }}>
               {() => (
-                <Stack.Navigator screenOptions={navigatorOptions}>
+                <Stack.Navigator screenOptions={navigatorOptions} initialRouteName="MainFavourite">
                   <Stack.Screen name="MainFavourite" options={{ title: 'Favourite posts' }} component={MainScreen} />
-                  <Stack.Screen name="Post" component={PostScreen} />
+                  <Stack.Screen name="FavouritePost" component={PostScreen} />
                 </Stack.Navigator>
               )}
             </Tab.Screen>
@@ -74,6 +76,7 @@ export default () => (
           </Stack.Navigator>
         )}
       </Drawer.Screen>
+
       <Drawer.Screen name="Create">
         {() => (
           <Stack.Navigator screenOptions={navigatorOptions}>
@@ -81,7 +84,6 @@ export default () => (
           </Stack.Navigator>
         )}
       </Drawer.Screen>
-
     </Drawer.Navigator>
   </NavigationContainer>
 )

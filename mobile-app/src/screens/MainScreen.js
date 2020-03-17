@@ -7,7 +7,7 @@ export const MainScreen = ({ route, navigation }) => {
     <View style={styles.center}>
       <FlatList
         data={route.name === 'MainFavourite' ? DATA.filter(post => post.booked) : DATA }
-        renderItem={({ item }) => <Post post={item} onOpen={() => navigation.navigate('Post', { id: item.id }) }/>}
+        renderItem={({ item }) => <Post post={item} onOpen={() => navigation.navigate(route.name === 'MainFavourite' ? 'FavouritePost' :'Post', { id: item.id }) }/>}
         keyExtractor={item => item.id}
       />
     </View>
