@@ -3,14 +3,14 @@ import { Provider } from 'react-redux'
 import { AppLoading } from 'expo'
 import { bootstrap } from './src/bootstrap'
 import AppNavigation from './src/navigation/AppNavigation'
-import store, { setPosts } from './src/store'
+import store, { setPosts, getPosts } from './src/store'
 import { useDispatch } from 'react-redux'
 import { DATA } from './assets/data'
 const App = () => {
   const [isReady, setIsReady] = useState(false);
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(setPosts(DATA))
+   dispatch(getPosts())
   })
   
   if (!isReady) {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
-import { addPost } from '../store'
+import { addPost, createPost } from '../store'
 import { useDispatch } from 'react-redux'
 import { TextInput } from 'react-native-paper'
 import AppButton from '../components/AppButton'
@@ -11,8 +11,8 @@ export const CreateScreen = ({ navigation }) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null)
   const dispatch = useDispatch()
-  const submitPost = () => {
-    dispatch(addPost({ title, image }))
+  const submitPost = async () => {
+    await dispatch(createPost({ title, image }))
     setTitle('')
     setImage(null)
     navigation.navigate('MainAll')
@@ -26,7 +26,7 @@ export const CreateScreen = ({ navigation }) => {
           <ImagePicker onPick={setImage} isFromGallery style={{ marginRight: 10 }}/>
           <ImagePicker onPick={setImage}/>
         </View>
-        <AppButton color="blue" onPress={submitPost}>Submit</AppButton>
+        <AppButton color="green" onPress={submitPost}>Submit</AppButton>
       </AppCard>
     </View>
   )
